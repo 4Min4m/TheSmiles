@@ -1,16 +1,18 @@
-import random
+import requests
 
-jokes = [
-    "Why don't scientists trust atoms? Because they make up everything!",
-    "Did you hear about the mathematician who's afraid of negative numbers? He'll stop at nothing to avoid them!",
-    "Why don't some couples go to the gym? Because some relationships don't work out!",
-    "What did one ocean say to the other ocean? Nothing, they just waved!",
-    "Why did the scarecrow win an award? Because he was outstanding in his field!"
-]
-
-def generate_random_joke():
-    return random.choice(jokes)
+def fetch_random_joke():
+    url = "https://v2.jokeapi.dev/joke/Any"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        data = response.json()
+        if data["type"] == "single":
+            return data["joke"]
+        elif data["type"] == "twopart":
+            return f"{data['setup']} {data['delivery']}"
+    else:
+        return "Failed to fetch joke from the API"
 
 if __name__ == "__main__":
-    joke = generate_random_joke()
+    joke = fetch_random_joke()
     print(joke)
