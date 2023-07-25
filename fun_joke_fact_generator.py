@@ -26,6 +26,17 @@ def generate_random_fact():
     else:
         return "Failed to fetch fact from the API"
 
+def show_options():
+    # Destroy the "Choose an Option" button
+    options_button.destroy()
+
+    # Create "Joke" and "Facts" buttons
+    joke_button = tk.Button(root, text="Joke", command=show_joke, font=("Arial", 12))
+    joke_button.pack(pady=10)
+
+    fact_button = tk.Button(root, text="Facts", command=show_fact, font=("Arial", 12))
+    fact_button.pack(pady=5)
+
 def show_joke():
     joke = generate_random_joke()
     messagebox.showinfo("Random Joke", joke)
@@ -34,15 +45,21 @@ def show_fact():
     fact = generate_random_fact()
     messagebox.showinfo("Random Fact", fact)
 
+# Create the main window
 root = tk.Tk()
 root.title("Fun Joke & Fact Generator")
 root.geometry("400x200")
 
-options_button = tk.Button(root, text="Joke =D", command=show_joke)
-options_button.pack(side=tk.LEFT, padx=10, pady=10)
+# Add a fun title label
+title_label = tk.Label(root, text="Welcome to the Fun Joke & Fact Generator!", font=("Arial", 14))
+title_label.pack(pady=10)
 
-options_button = tk.Button(root, text="Facts ;)", command=show_fact)
-options_button.pack(side=tk.RIGHT, padx=10, pady=10)
+# Add a button to show options
+options_button = tk.Button(root, text="Choose an Option", command=show_options, font=("Arial", 12))
+options_button.pack(pady=20)
 
+# Add a footer label
+footer_label = tk.Label(root, text="Have a laugh or learn something new!", font=("Arial", 10))
+footer_label.pack(pady=5)
 
 root.mainloop()
